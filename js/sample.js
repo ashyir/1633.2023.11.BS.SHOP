@@ -53,18 +53,3 @@ console.log(persons[0].name);
 persons[0].name = "Another Other";
 console.log(persons[0].name);
 // End Variable Examples.
-
-let accounts = [
-    {
-        "first_name": "",
-        "last_name": "",
-        "email": "test@test.com",
-        "password": "abc",
-    },
-    {
-        "first_name": "",
-        "last_name": "",
-        "email": "admin@test.com",
-        "password": "abc",
-    },
-];

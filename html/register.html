@@ -63,31 +63,32 @@
     <!-- Main Content -->
     <div class="container">
         <div class="d-flex justify-content-center">
-            <form class="col-12 col-md-6">
+            <form class="col-12 col-md-6" id="frm-register">
                 <div class="form-floating mt-3">
-                    <input type="text" class="form-control" id="firstname" placeholder="First Name">
-                    <label for="firstname">First Name</label>
+                    <input type="text" class="form-control" id="frm-register-first-name" placeholder="First Name">
+                    <label for="frm-register-first-name">First Name</label>
                 </div>
 
                 <div class="form-floating mt-3">
-                    <input type="text" class="form-control" id="lastname" placeholder="Last Name">
-                    <label for="firstname">Last Name</label>
+                    <input type="text" class="form-control" id="frm-register-last-name" placeholder="Last Name">
+                    <label for="frm-register-last-name">Last Name</label>
                 </div>
 
                 <div class="form-floating mt-3">
-                    <input type="email" class="form-control" id="email" placeholder="Email" required>
-                    <label for="email">Email *</label>
+                    <input type="email" class="form-control" id="frm-register-email" placeholder="Email" required>
+                    <label for="frm-register-email">Email *</label>
                 </div>
 
                 <div class="form-floating mt-3">
-                    <input type="password" class="form-control" id="password" placeholder="Password" required>
-                    <label for="password">Password *</label>
-                </div>
-
-                <div class="form-floating mt-3">
-                    <input type="password" class="form-control" id="password-confirm" placeholder="Confirm Password"
+                    <input type="password" class="form-control" id="frm-register-password" placeholder="Password"
                         required>
-                    <label for="password-confirm">Confirm Password *</label>
+                    <label for="frm-register-password">Password *</label>
+                </div>
+
+                <div class="form-floating mt-3">
+                    <input type="password" class="form-control" id="frm-register-password-confirm"
+                        placeholder="Confirm Password" required>
+                    <label for="frm-register-password-confirm">Confirm Password *</label>
                 </div>
 
                 <div class="mt-3">
@@ -137,6 +138,73 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+
+    <script>
+        var frm_register = document.getElementById("frm-register");
+        var frm_register_first_name = document.getElementById("frm-register-first-name");
+        var frm_register_last_name = document.getElementById("frm-register-last-name");
+        var frm_register_email = document.getElementById("frm-register-email");
+        var frm_register_password = document.getElementById("frm-register-password");
+        var frm_register_password_confirm = document.getElementById("frm-register-password-confirm");
+
+        frm_register.addEventListener("submit", register);
+
+        function register(e) {
+            e.preventDefault();
+
+            var email = frm_register_email.value;
+            var password = frm_register_password.value;
+            var password_confirm = frm_register_password_confirm.value;
+
+            if (password != password_confirm) {
+                alert("Password does not match with Password Confirm !");
+                return false;
+            }
+
+            // Get all accounts from database.
+            var accounts = JSON.parse(sessionStorage.getItem("accounts"));
+
+            if (is_email_unique(accounts, email)) {
+                var account = {
+                    "first_name": frm_register_first_name.value,
+                    "last_name": frm_register_last_name.value,
+                    "email": frm_register_email.value,
+                    "password": password,
+                }
+
+                add_account(accounts, account);
+
+                alert("Successfully register an account!");
+                window.location.href = "login.html";
+            }
+        }
+
+        function is_email_unique(accounts, email) {
+            if (accounts == null)
+                return true;
+
+            for (var item of accounts) {
+                if (item.email == email) {
+                    alert("Email exists!");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        function add_account(accounts, account) {
+            if (accounts == null) {
+                accounts = [];
+                accounts[0] = account;
+            }
+            else {
+                accounts.push(account);
+            }
+
+            sessionStorage.setItem("accounts", JSON.stringify(accounts));
+        }
+    </script>
 </body>
 
 </html>
