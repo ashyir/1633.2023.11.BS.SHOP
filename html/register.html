@@ -1,211 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class='d-flex justify-content-center' id='register'>
+    <form class='col-12 col-md-6' id='frm-register'>
+        <div class='form-floating mt-3'>
+            <input type='text' class='form-control' id='frm-register-first-name' placeholder='First Name'>
+            <label for='frm-register-first-name'>First Name</label>
+        </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <div class='form-floating mt-3'>
+            <input type='text' class='form-control' id='frm-register-last-name' placeholder='Last Name'>
+            <label for='frm-register-last-name'>Last Name</label>
+        </div>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <div class='form-floating mt-3'>
+            <input type='email' class='form-control' id='frm-register-email' placeholder='Email' required>
+            <label for='frm-register-email'>Email *</label>
+        </div>
 
-    <title>Register</title>
-</head>
+        <div class='form-floating mt-3'>
+            <input type='password' class='form-control' id='frm-register-password' placeholder='Password' required>
+            <label for='frm-register-password'>Password *</label>
+        </div>
 
-<body onload="load_page();">
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg bg-success sticky-top" data-bs-theme="dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="../index.html">
-                <div class="d-flex align-items-center">
-                    <img src="../img/logo.png" alt="Boy Scout Logo" height="35px">&nbsp;&nbsp;Boy Scout
-                </div>
-            </a>
+        <div class='form-floating mt-3'>
+            <input type='password' class='form-control' id='frm-register-password-confirm'
+                placeholder='Confirm Password' required>
+            <label for='frm-register-password-confirm'>Confirm Password *</label>
+        </div>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+        <div class='mt-3'>
+            <a href='#' id='link-login'>Already had account?</a>
+        </div>
+
+        <div class='text-center mt-3'>
+            <button class='btn btn-success' type='submit'>
+                Register
             </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="../index.html">Home</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="product.html">Product</a>
-                    </li>
-                </ul>
-
-                <ul class="d-flex navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="cart.html">Cart [<span>0</span>]</a>
-                    </li>
-
-                    <li class="nav-item" id="navbar-login">
-                        <a class="nav-link active" aria-current="page" href="login.html">Login</a>
-                    </li>
-
-                    <li class="nav-item d-none" id="navbar-profile">
-                        <a class="nav-link" aria-current="page" href="profile.html">Profile</a>
-                    </li>
-
-                    <li class="nav-item d-none" id="navbar-logout">
-                        <a class="nav-link" aria-current="page" href="#" onclick="logout();">Logout</a>
-                    </li>
-                </ul>
-            </div>
         </div>
-    </nav>
-    <!-- End Navigation Bar -->
+    </form>
+</div>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="d-flex justify-content-center">
-            <form class="col-12 col-md-6" id="frm-register">
-                <div class="form-floating mt-3">
-                    <input type="text" class="form-control" id="frm-register-first-name" placeholder="First Name">
-                    <label for="frm-register-first-name">First Name</label>
-                </div>
+<script>
+    pageTitle.innerHTML = 'Register';
 
-                <div class="form-floating mt-3">
-                    <input type="text" class="form-control" id="frm-register-last-name" placeholder="Last Name">
-                    <label for="frm-register-last-name">Last Name</label>
-                </div>
+    $('#frm-register').submit(register);
+    $('#link-login').on('click', navigate);
 
-                <div class="form-floating mt-3">
-                    <input type="email" class="form-control" id="frm-register-email" placeholder="Email" required>
-                    <label for="frm-register-email">Email *</label>
-                </div>
+    function register(event) {
+        event.preventDefault();
 
-                <div class="form-floating mt-3">
-                    <input type="password" class="form-control" id="frm-register-password" placeholder="Password"
-                        required>
-                    <label for="frm-register-password">Password *</label>
-                </div>
+        const formRegisterFirstName = document.getElementById('frm-register-first-name');
+        const formRegisterLastName = document.getElementById('frm-register-last-name');
+        const formRegisterEmail = document.getElementById('frm-register-email');
+        const formRegisterPassword = document.getElementById('frm-register-password');
+        const formRegisterPasswordConfirm = document.getElementById('frm-register-password-confirm');
 
-                <div class="form-floating mt-3">
-                    <input type="password" class="form-control" id="frm-register-password-confirm"
-                        placeholder="Confirm Password" required>
-                    <label for="frm-register-password-confirm">Confirm Password *</label>
-                </div>
+        const email = formRegisterEmail.value;
+        const password = formRegisterPassword.value;
+        const passwordConfirm = formRegisterPasswordConfirm.value;
 
-                <div class="mt-3">
-                    <a href="login.html">Already had account?</a>
-                </div>
-
-                <div class="text-center mt-3">
-                    <button class="btn btn-success" type="submit">
-                        Register
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- End Main Content -->
-
-    <!-- Footer -->
-    <div class="container">
-        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-            <div class="col-md-4 align-items-center">
-                <div class="mb-3 mb-md-0 text-muted d-flex align-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-telephone" viewBox="0 0 16 16">
-                        <path
-                            d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
-                    </svg>
-                    &nbsp;&nbsp;0962242999
-                </div>
-
-                <div class="mb-3 mb-md-0 text-muted d-flex align-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-envelope" viewBox="0 0 16 16">
-                        <path
-                            d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
-                    </svg>
-                    &nbsp;&nbsp;baohnp@fe.edu.vn
-                </div>
-            </div>
-
-            <div class="col-md-4 d-flex align-items-center justify-content-end">
-                <span class="mb-3 mb-md-0 text-muted">&copy; 2023 Boy Scout</span>
-            </div>
-        </footer>
-    </div>
-    <!-- End Footer -->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-    <script src="../js/index.js"></script>
-
-    <script>
-        var frm_register = document.getElementById("frm-register");
-        var frm_register_first_name = document.getElementById("frm-register-first-name");
-        var frm_register_last_name = document.getElementById("frm-register-last-name");
-        var frm_register_email = document.getElementById("frm-register-email");
-        var frm_register_password = document.getElementById("frm-register-password");
-        var frm_register_password_confirm = document.getElementById("frm-register-password-confirm");
-
-        frm_register.addEventListener("submit", register);
-
-        function register(e) {
-            e.preventDefault();
-
-            var email = frm_register_email.value;
-            var password = frm_register_password.value;
-            var password_confirm = frm_register_password_confirm.value;
-
-            if (password != password_confirm) {
-                alert("Password does not match with Password Confirm !");
-                return false;
-            }
-
-            // Get all accounts from database.
-            var accounts = JSON.parse(sessionStorage.getItem("accounts"));
-
-            if (is_email_unique(accounts, email)) {
-                var account = {
-                    "first_name": frm_register_first_name.value,
-                    "last_name": frm_register_last_name.value,
-                    "email": frm_register_email.value,
-                    "password": password,
-                }
-
-                add_account(accounts, account);
-
-                alert("Successfully register an account!");
-                window.location.href = "login.html";
-            }
+        if (password !== passwordConfirm) {
+            alert('Passwords do not match!');
+            return;
         }
 
-        function is_email_unique(accounts, email) {
-            if (accounts == null)
-                return true;
+        var accounts = getSessionAccounts();
+        const emailExists = accounts.some(item => item.email === email);
 
-            for (var item of accounts) {
-                if (item.email == email) {
-                    alert("Email exists!");
-                    return false;
-                }
-            }
-
-            return true;
+        if (emailExists) {
+            alert('This email is already registered. Please use a different email.');
+            return;
         }
 
-        function add_account(accounts, account) {
-            if (accounts == null) {
-                accounts = [];
-                accounts[0] = account;
-            }
-            else {
-                accounts.push(account);
-            }
+        const account = {
+            'first_name': formRegisterFirstName.value,
+            'last_name': formRegisterLastName.value,
+            'email': email,
+            'password': password,
+        };
 
-            sessionStorage.setItem("accounts", JSON.stringify(accounts));
-        }
-    </script>
-</body>
+        accounts.push(account);
+        setSessionAccounts(accounts)
 
-</html>
+        alert('Registration successful! You can now log in.');
+        loadPage('login');
+    }
+</script>
